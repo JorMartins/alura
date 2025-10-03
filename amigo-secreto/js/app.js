@@ -20,8 +20,8 @@ function adicionar() {
   input.value = '';
   atualizarListaAmigos();
 }
-
-// Função atualizar a lista de amigos na tela
+/*
+// Separados por vírugla
 function atualizarListaAmigos() {
   const lista = document.getElementById('lista-amigos');
   if (amigos.length === 0) {
@@ -31,6 +31,30 @@ function atualizarListaAmigos() {
     lista.innerHTML = `<p>${nomesJuntos}</p>`;
   }
 }
+*/
+
+// Lista clicável para remover
+function atualizarListaAmigos() {
+  const lista = document.getElementById('lista-amigos');
+  if (amigos.length === 0) {
+    lista.innerHTML = '<p>Nenhum amigo adicionado ainda.</p>';
+  } else {
+    // Cria spans clicáveis para cada nome, separados por vírgula
+    const spansNomes = amigos.map(nome => 
+      `<span class="amigo-item" onclick="removerAmigo('${nome}')">${nome}</span>`
+    ).join(', ');
+    lista.innerHTML = `<p>${spansNomes}</p>`;
+  }
+}
+
+// Remover um amigo ao clicar no nome
+function removerAmigo(nome) {
+  if (confirm(`Deseja remover "${nome}" da lista?`)) {  // Confirmação
+    amigos = amigos.filter(amigo => amigo !== nome);  // Remove o nome exato do array
+    atualizarListaAmigos();  // Atualiza a tela
+  }
+}
+
 
 // Função sortear os amigos (Amigo Secreto)
 function sortear() {
